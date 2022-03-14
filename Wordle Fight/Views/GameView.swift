@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct GameView: View {
+    let testEnvAD = "ca-app-pub-3940256099942544/4411468910" // interstitial
+    let prodEnvAd = "ca-app-pub-8804419651156039/2485031687"
+    
+    let testEnvRewardAd = "ca-app-pub-3940256099942544/1712485313" // reward
+    let prodEnvRewardAd = "ca-app-pub-8804419651156039/2511353357"
+    
     @EnvironmentObject var dm: WordleDataModel
     @State private var showSettings = false
     @State private var showHelp = false
+    @State var showRewardedAd: Bool = false
+    @State var showIntersitialAd: Bool = false
+    @State var rewardGranted: Bool = false
+    
     var body: some View {
         ZStack {
+            
             NavigationView {
                 VStack {
                     if Global.screenHeight < 600 {
@@ -52,16 +63,20 @@ struct GameView: View {
                                         .foregroundColor(.primary)
                                 }
                             }
+                            
                             Button {
                                 showHelp.toggle()
                             } label: {
                                 Image(systemName: "questionmark.circle")
                             }
+                            
                             Button {
-                                showHelp.toggle()
+                                showRewardedAd.toggle()
                             } label: {
                                 Image(systemName: "lightbulb")
                             }
+                            
+                            
                         }
                     }
                     ToolbarItem(placement: .principal) {
@@ -91,6 +106,28 @@ struct GameView: View {
                 }
                 .sheet(isPresented: $showSettings) {
                     SettingsView()
+                }
+                .presentRewardedAd(isPresented: $showRewardedAd, adUnitId: prodEnvRewardAd) {
+                    print("Reward Granted")
+                    let currentWord = dm.currentWord
+                    let selectedWord = dm.selectedWord
+                    var hint = String()
+                    
+                    if currentWord == "" {
+                        hint = "The first character is \(String(selectedWord.prefix(1)))"
+                    } else {
+                        if currentWord.prefix(1) == selectedWord.prefix(1) {
+                            // show 2nd char hint
+                            hint = "The second character is \(String(selectedWord.prefix(2)))"
+                        } else {
+                            hint = "The first character is \(String(selectedWord.prefix(1)))"
+                        }
+                    }
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        dm.showToast(with: hint)
+                    }
+                    rewardGranted.toggle()
                 }
             }
             if dm.showStats {

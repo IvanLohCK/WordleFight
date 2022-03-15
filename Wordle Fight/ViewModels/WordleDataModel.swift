@@ -120,7 +120,7 @@ class WordleDataModel: ObservableObject {
                     currentStat.update(win: false)
                     gameOver = true
                     inPlay = false
-                    showToast(with: selectedWord)
+                    showToast(with: "The correct word is: \(selectedWord)")
                 }
             } else {
                 withAnimation {
@@ -233,7 +233,7 @@ class WordleDataModel: ObservableObject {
         withAnimation {
             toastText = text
         }
-        withAnimation(Animation.linear(duration: 0.2).delay(3)) {
+        withAnimation(Animation.linear(duration: 0.2).delay(4)) {
             toastText = nil
             if gameOver {
                 withAnimation(Animation.linear(duration: 0.2).delay(3)) {

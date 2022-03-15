@@ -25,26 +25,28 @@ struct GameView: View {
         ZStack {
             NavigationView {
                 VStack {
-                    
-                    if let toastText = dm.toastText {
-                        ToastView(toastText: toastText)
-                            .offset(y: 0)
-                            .frame(height: 5, alignment: .top)
-                    }
-                    
-                    if !dm.inPlay {
-                        Button {
-                            dm.newGame()
-                        } label: {
-                            Text("New Game")
-                                .foregroundColor(.white)
-                                .padding(8)
-                                .background(Color.correct)
-                                .cornerRadius(3)
+                    VStack{
+                        if let toastText = dm.toastText {
+                            ToastView(toastText: toastText)
+                                .offset(y: 0)
+                                .frame(height: 5, alignment: .top)
                         }
-                        .foregroundColor(.primary)
-                        .padding(10)
+                        
+                        if !dm.inPlay {
+                            Button {
+                                dm.newGame()
+                            } label: {
+                                Text("New Game")
+                                    .foregroundColor(.white)
+                                    .padding(8)
+                                    .background(Color.correct)
+                                    .cornerRadius(3)
+                            }
+                            .foregroundColor(.primary)
+                            .padding(.init(top: 50, leading: 0, bottom: 0, trailing: 0))
+                        }
                     }
+                    
                     
                     if Global.screenHeight < 600 {
                         Text("")

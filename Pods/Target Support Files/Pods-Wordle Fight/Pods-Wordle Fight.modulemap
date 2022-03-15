@@ -1,0 +1,6 @@
+framework module Pods_Wordle_Fight {
+  umbrella header "Pods-Wordle Fight-umbrella.h"
+
+  export *
+  module * { export * }
+}

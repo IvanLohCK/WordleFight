@@ -23,7 +23,6 @@ struct GameView: View {
     
     var body: some View {
         ZStack {
-            
             NavigationView {
                 VStack {
                     if Global.screenHeight < 600 {
@@ -62,26 +61,30 @@ struct GameView: View {
                                     Text("New")
                                         .foregroundColor(.primary)
                                 }
+                                .foregroundColor(.primary)
                             }
+                                
                             
                             Button {
                                 showHelp.toggle()
                             } label: {
                                 Image(systemName: "questionmark.circle")
                             }
+                            .foregroundColor(.primary)
                             
                             Button {
                                 showRewardedAd.toggle()
                             } label: {
                                 Image(systemName: "lightbulb")
                             }
+                            .foregroundColor(.primary)
                             
                             
                         }
                     }
                     ToolbarItem(placement: .principal) {
-                        Text("WORDLE")
-                            .font(.largeTitle)
+                        Text("WORDLE FIGHT")
+                            .font(.title2)
                             .fontWeight(.heavy)
                             .foregroundColor(dm.hardMode ? Color(.systemRed) : .primary)
                             .minimumScaleFactor(0.5)
@@ -96,11 +99,13 @@ struct GameView: View {
                             } label: {
                                 Image(systemName: "chart.bar")
                             }
+                            .foregroundColor(.primary)
                             Button {
                                 showSettings.toggle()
                             } label: {
                                 Image(systemName: "gearshape.fill")
                             }
+                            .foregroundColor(.primary)
                         }
                     }
                 }
@@ -118,7 +123,7 @@ struct GameView: View {
                     } else {
                         if currentWord.prefix(1) == selectedWord.prefix(1) {
                             // show 2nd char hint
-                            hint = "The second character is \(String(selectedWord.prefix(2)))"
+                            hint = "The first two character is \(String(selectedWord.prefix(2)))"
                         } else {
                             hint = "The first character is \(String(selectedWord.prefix(1)))"
                         }
@@ -130,6 +135,7 @@ struct GameView: View {
                     rewardGranted.toggle()
                 }
             }
+            
             if dm.showStats {
                 StatsView()
             }

@@ -200,7 +200,6 @@ class WordleDataModel: ObservableObject {
             if correctLetters.contains(guessLetter)
                 && guesses[tryIndex].bgColors[index] != .correct
                 && frequency[guessLetter]! > 0 {
-                print("zzz") // THIS IS CORRECT
                 keyColors[guessLetter] = .misplaced
                 guesses[tryIndex].bgColors[index] = .misplaced
                 if !misplacedLetters.contains(guessLetter) && matchedLetters.contains(guessLetter) {

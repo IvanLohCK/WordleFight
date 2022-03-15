@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HelpView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -47,7 +47,7 @@ struct HelpView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        dismiss()
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("**X**")
                     }

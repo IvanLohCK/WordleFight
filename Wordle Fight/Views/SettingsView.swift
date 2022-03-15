@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var dm: WordleDataModel
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
                     VStack {
@@ -29,7 +29,7 @@ struct SettingsView: View {
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
                             Button {
-                                dismiss()
+                                presentationMode.wrappedValue.dismiss()
                             } label: {
                                 Text("**X**")
                             }

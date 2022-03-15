@@ -25,6 +25,27 @@ struct GameView: View {
         ZStack {
             NavigationView {
                 VStack {
+                    
+                    if let toastText = dm.toastText {
+                        ToastView(toastText: toastText)
+                            .offset(y: 0)
+                            .frame(height: 5, alignment: .top)
+                    }
+                    
+                    if !dm.inPlay {
+                        Button {
+                            dm.newGame()
+                        } label: {
+                            Text("New Game")
+                                .foregroundColor(.white)
+                                .padding(8)
+                                .background(Color.correct)
+                                .cornerRadius(3)
+                        }
+                        .foregroundColor(.primary)
+                        .padding(10)
+                    }
+                    
                     if Global.screenHeight < 600 {
                         Text("")
                     }
@@ -45,25 +66,9 @@ struct GameView: View {
                 .disabled(dm.showStats)
                 .navigationBarTitleDisplayMode(.inline)
                 .disabled(dm.showStats)
-                .overlay(alignment: .top) {
-                    if let toastText = dm.toastText {
-                        ToastView(toastText: toastText)
-                            .offset(y: 20)
-                    }
-                }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         HStack {
-                            if !dm.inPlay {
-                                Button {
-                                    dm.newGame()
-                                } label: {
-                                    Text("New")
-                                        .foregroundColor(.primary)
-                                }
-                                .foregroundColor(.primary)
-                            }
-                                
                             
                             Button {
                                 showHelp.toggle()
